@@ -1,9 +1,14 @@
 {% extends "layout.html.twig" %}
 
-    {% block title %}
-        Admin | Categorie Index |
-        {{ parent() }}
-    {% endblock %}
+{% block title %}
+    Admin | Categorie Index |
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('admin') }} 
+{% endblock %}
 
 {% block body %}
 
@@ -18,7 +23,7 @@
                         <div class="col-md-6">{{ categorie.titre }}</div>
                         <div class="col-md-6">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" value="{{ categorie.id }}" {{ categorie.enable ? 'checked' }}>
+                                <input class="form-check-input" type="checkbox" role="switch" value="{{ categorie.id }}" {{ categorie.enable ? 'checked' }} data-switch-active-tag >
                                 <label class="form-check-label">Actif</label>
                             </div>
                             <div class="row">
@@ -69,4 +74,8 @@
     </section>
 
     
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('admin') }}
 {% endblock %}
