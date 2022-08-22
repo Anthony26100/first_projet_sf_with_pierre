@@ -15,7 +15,7 @@
             </div>
             {% if app.user %}
                 {% if is_granted('ROLE_ADMIN') %}
-                    <div class="ml-left">
+                    <div class="navbar-btn me-2">
                         <a href="{{ path('admin') }}" class="btn btn-secondary">Admin</a>
                     </div>
                 {% endif %}
