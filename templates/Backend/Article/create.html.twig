@@ -9,14 +9,7 @@
     <div class="container-fluid mt-4">
         <div class="card w-50 mx-auto p-3">
         <h1 class="text-center">CRÉATION D'UN ARTICLE</h1>
-            {{form_start(form)}}
-            {{form_widget(form.titre, {'attr': {'class': 'mb-4', 'placeholder': 'Titre de l\'Article'}} )}}
-            {{form_row(form.categories)}}
-            {{form_widget(form.content, {'attr': {'class': 'mb-4', 'placeholder': 'Contenu de l\'Article', 'rows': 10}} )}}
-            <div class="text-center">
-                <button type="submit" class="btn btn-dark btn-inline">CRÉER</button>
-            </div>
-            {{form_end(form)}}
+            {% include "Backend/Article/_form.html.twig" with {button_label: "Créer"} %}
         </div>
     </div>
 {% endblock %}
