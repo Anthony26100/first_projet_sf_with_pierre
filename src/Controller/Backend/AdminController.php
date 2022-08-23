@@ -46,6 +46,7 @@ class AdminController extends AbstractController
         $this->em = $em;
     }
 
+    // #Route commentaire du routage
     #[Route('', name: 'admin')]
     public function index(): Response
     {
