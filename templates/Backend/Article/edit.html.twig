@@ -5,10 +5,19 @@
     {{parent()}}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('admin') }} 
+{% endblock %}
+
 {% block body %}
     <div class="container-fluid mt-4">
         <div class="card w-50 mx-auto p-3">
         <h1 class="text-center">MODIFICATION D'UN ARTICLE</h1>
         {% include "Backend/Article/_form.html.twig" with {button_label: "Modifier"} %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('admin') }}
 {% endblock %}

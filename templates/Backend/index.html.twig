@@ -68,7 +68,7 @@
                                     </p>
                                     <div class="row mt-4">
                                         <div class="col-md-6">
-                                            <a href="{{ path('admin.article.edit', {id: article.id}) }}) }}" class="btn btn-warning">Modifier</a>
+                                            <a href="{{ path('admin.article.edit', {id: article.id}) }}" class="btn btn-warning">Modifier</a>
                                         </div>
                                         <div class="col-md-6">
                                             <form method="POST" action="{{ path('admin.article.delete', {id: article.id} ) }}" onsubmit="return confirm('Êtes-vous vraiment sûr(e) de vouloir supprimer cet Article ?')">
