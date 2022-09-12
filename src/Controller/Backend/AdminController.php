@@ -5,17 +5,13 @@ namespace App\Controller\Backend;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class Admin Controller
- * @Route("/admin")
- */
+#[Route('/admin')]
 class AdminController extends AbstractController
 {
     /**
@@ -26,23 +22,15 @@ class AdminController extends AbstractController
     private $repoArticle;
 
     /**
-     * User Repository to find User Object
-     *
-     * @var UserRepository
-     */
-    private $repoUser;
-
-    /**
      * Entity Manager Interface
      *
      * @var EntityManagerInterface
      */
     private $em;
 
-    public function __construct(ArticleRepository $repoArticle, UserRepository $repoUser, EntityManagerInterface $em)
+    public function __construct(ArticleRepository $repoArticle, EntityManagerInterface $em)
     {
         $this->repoArticle = $repoArticle;
-        $this->repoUser = $repoUser;
         $this->em = $em;
     }
 
@@ -51,14 +39,14 @@ class AdminController extends AbstractController
     public function index(): Response
     {
         //Récupérer tous les Users
-        $users = $this->repoUser->findAll();
+        // $users = $this->repoUser->findAll();
 
         //Récupérer tous les Articles
         $articles = $this->repoArticle->findAll();
 
         return $this->render('Backend/index.html.twig', [
             'articles' => $articles,
-            'users' => $users,
+            // 'users' => $users,
         ]);
     }
 

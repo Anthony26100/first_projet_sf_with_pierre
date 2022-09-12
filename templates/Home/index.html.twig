@@ -7,43 +7,9 @@
 
 {% block body %}
     {% include "Home/_banner.html.twig"%}
-
-    {# <h1>Page d'Accueil de mon App Symfony</h1>
-
-    {{ dump(data) }}
-
-    <p>
-        Nom :
-        {{ data.nom }}
-    </p>
-    <p>
-        Âge :
-        {{ data.age }}
-    </p>
-
-    <p>
-        Ville :
-        {{ data.ville }}
-    </p> #}
-
-    {# {{ dump(_context) }} #}
-
-    <div class="container mt-4">
-        <div class="row">
-            {% for article in articles %}
-                <div class="col-md-4">
-                    <div class="blog-card">
-                        <div class="blog-card-image">
-                            <img src="https://www.nemesis-studio.com/wp-content/uploads/2017/07/front-back-end.png?v=1637161606" alt="" />
-                        </div>
-                        <div class="blog-card-content">
-                            <h2 class="blog-card-header">{{article.titre}}</h2>
-                            <p>{{article.content}}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+        <div class="container mt-4">
+            <div class="row">
+                {% include 'Articles/_articles.html.twig' %}
+            </div>
         </div>
-    </div>
-
 {% endblock %}
