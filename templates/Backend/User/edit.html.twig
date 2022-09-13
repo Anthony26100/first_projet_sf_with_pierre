@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+Edition Categorie | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="card p-3 w-50 mx-auto">
+        <h1>Editer {{ categorie.titre }}</h1>
+        {% include 'Backend/categorie/_form.html.twig' with { button_label: 'Modifier' } %}
+        <div class="text-end">
+            {% include 'Backend/categorie/_delete_form.html.twig' %}
+            <a href="{{ path('app_categorie_index') }}">Retour à la listes</a>
+        </div>
+    </div>
+{% endblock %}

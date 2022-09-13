@@ -5,6 +5,7 @@ namespace App\Controller\Backend;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin')]
-class AdminController extends AbstractController
+class ArticleController extends AbstractController
 {
     /**
      * Article Repository to find Article Object
@@ -28,7 +29,7 @@ class AdminController extends AbstractController
      */
     private $em;
 
-    public function __construct(ArticleRepository $repoArticle, EntityManagerInterface $em)
+    public function __construct(ArticleRepository $repoArticle, EntityManagerInterface $em, UserRepository $repoUser)
     {
         $this->repoArticle = $repoArticle;
         $this->em = $em;
