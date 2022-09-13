@@ -19,11 +19,13 @@
     <body>
         {% include "Layout/header.html.twig" %}
         <main>
+            {% include "Layout/_flash.html.twig" %}
             {% block body %}{% endblock %}
         </main>
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        
     </body>
 </html>

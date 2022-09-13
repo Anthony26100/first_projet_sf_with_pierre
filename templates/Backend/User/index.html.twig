@@ -51,12 +51,10 @@
                         <td>                            
                             <div class="row">
                                 <div class="col-md-8">
-                                    {# <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}" class="btn btn-warning">Modifier</a> #}
+                                    {% include "Backend/User/_actions.html.twig" %}
                                 </div>
-                                <div class="col-md-8 mt-2">
-                                    {% include 'Backend/User/_delete_form.html.twig' %}
-                                </div>
-                            </div></td>
+                            </div>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

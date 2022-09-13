@@ -15,8 +15,15 @@
             </div>
             {% if app.user %}
                 {% if is_granted('ROLE_ADMIN') %}
-                    <div class="navbar-btn me-2">
-                        <a href="{{ path('admin') }}" class="btn btn-secondary">Admin</a>
+                    <div class="dropdown me-2">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                           <i class="bi bi-gear-fill"></i> Admin
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="{{ path('admin.user.index') }}"><i class="bi bi-people-fill"></i> Gérer les utilisateurs</a></li>
+                            <li><a class="dropdown-item" href="{{ path('admin') }}"><i class="bi bi-bag-check-fill"></i> Articles</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_categorie_index') }}"><i class="bi bi-bookmarks-fill"></i> Catégories</a></li>
+                        </ul>
                     </div>
                 {% endif %}
                 <div class="ml-left ml-4">

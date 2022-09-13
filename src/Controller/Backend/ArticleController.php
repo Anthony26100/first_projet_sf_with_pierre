@@ -29,7 +29,7 @@ class ArticleController extends AbstractController
      */
     private $em;
 
-    public function __construct(ArticleRepository $repoArticle, EntityManagerInterface $em, UserRepository $repoUser)
+    public function __construct(ArticleRepository $repoArticle, EntityManagerInterface $em)
     {
         $this->repoArticle = $repoArticle;
         $this->em = $em;

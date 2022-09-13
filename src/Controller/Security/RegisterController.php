@@ -35,7 +35,7 @@ class RegisterController extends AbstractController {
 
       $repo->add($users, true);
 
-      $this->addFlash('Success', 'Inscription réussite');
+      $this->addFlash('success', 'Inscription réussite');
 
       return $this->redirectToRoute('login');
     }
