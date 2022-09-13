@@ -1,0 +1,14 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    Mon Compte | 
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<pre>
+    {{ dump(user) }}
+</pre>
+
+
+{% endblock %}

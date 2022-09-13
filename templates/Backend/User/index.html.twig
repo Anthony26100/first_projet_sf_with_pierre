@@ -42,6 +42,7 @@
             <tbody>
                 {% for user in users %}
                     <tr>
+                        <td><div class="container "><img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.imageName }}" class="img-thumbnail"/></div></td>
                         <td>{{ user.prenom }}</td>
                         <td>{{ user.nom }}</td>
                         <td>{{ user.username }}</td>

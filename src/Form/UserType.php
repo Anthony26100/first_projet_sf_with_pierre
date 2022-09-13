@@ -6,11 +6,12 @@ use App\Entity\User;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserType extends AbstractType
 {
@@ -63,6 +64,12 @@ class UserType extends AbstractType
                     'attr' => [
                         'placeholder' => 'Votre ville'
                     ]
+                ])
+                ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'download_uri' => false,
+                'image_uri' => true,
+                'label' => 'Image:',
                 ]);
             }
 

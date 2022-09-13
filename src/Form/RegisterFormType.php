@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -83,7 +84,12 @@ class RegisterFormType extends AbstractType
                     'placeholder' => 'Veuillez rentrer votre nom'
                 ]
             ])
-        ;
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'download_uri' => false,
+                'image_uri' => true,
+                'label' => 'Image:',
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
