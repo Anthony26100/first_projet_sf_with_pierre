@@ -16,7 +16,7 @@
             {% if app.user %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="dropdown me-2">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle mx-4" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                            <i class="bi bi-gear-fill"></i> Admin
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -27,6 +27,9 @@
                     </div>
                 {% endif %}
                 <div class="ml-left ml-4">
+                    <a href="{{ path('app.user.compte') }}" class="btn btn-warning">Mon Compte</a>
+                </div>
+                <div class="ml-left mx-4">
                     <a href="{{ path('logout') }}" class="btn btn-danger">Se deconnecter</a>
                 </div>
             {% else %}

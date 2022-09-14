@@ -215,6 +215,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getfullName(): ?string
+    {
+        return "$this->prenom $this->nom";
+    }
     
      /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance

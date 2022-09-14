@@ -5,7 +5,6 @@ namespace App\Controller\Backend;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,6 +96,8 @@ class ArticleController extends AbstractController
     public function deleteArticle($id, Article $article, Request $request)
 
     {
+        $article = $this->repoArticle->find($id);
+        
         if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->get("_token"))) {
             $this->em->remove($article);
             $this->em->flush();

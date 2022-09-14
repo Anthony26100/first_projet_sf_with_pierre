@@ -36,7 +36,7 @@ class MainController extends AbstractController
         // ];
 
         // return $this->render('Home/index.html.twig', ['data' => $data]);
-        return $this->render('Home/index.html.twig', [
+        return $this->render('Frontend/Home/index.html.twig', [
             'articles' => $articles
         ]);
     }
