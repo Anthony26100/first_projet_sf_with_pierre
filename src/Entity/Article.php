@@ -52,6 +52,10 @@ class Article
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $imageUpdatedAt = null;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -180,5 +184,17 @@ class Article
     public function getImageSize(): ?int
     {
         return $this->imageSize;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
