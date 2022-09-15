@@ -18,63 +18,76 @@ class UserType extends AbstractType
     public function __construct(
         private Security $security
     ) {
-
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $user = $event->getData();
             $form = $event->getForm();
-            if($user === $this->security->getUser()) {
-                $form 
-                ->add('username', TextType::class, [
-                'label' => false,
-                'required' => true,
-                'attr' => [
-                    'placeholder' => 'Votre Username',
-                ]
-                ])
-                ->add('prenom', TextType::class, [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Votre prenom'
-                    ]
-                ])
-                ->add('nom', TextType::class, [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Votre nom'
-                    ]
-                ])
-                ->add('age', TextType::class, [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Votre age'
-                    ]
-                ])
-                ->add('email', TextType::class, [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Votre email'
-                    ]
-                ])
-                ->add('ville', TextType::class, [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Votre ville'
-                    ]
-                ])
-                ->add('imageFile', VichImageType::class, [
-                'required' => false,
-                'download_uri' => false,
-                'image_uri' => true,
-                'label' => 'Image:',
-                ]);
+            if ($user === $this->security->getUser()) {
+                $form
+                    ->add('username', TextType::class, [
+                        'label' => false,
+                        'required' => true,
+                        'attr' => [
+                            'placeholder' => 'Votre Username',
+                        ]
+                    ])
+                    ->add('prenom', TextType::class, [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Votre prenom'
+                        ]
+                    ])
+                    ->add('nom', TextType::class, [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Votre nom'
+                        ]
+                    ])
+                    ->add('age', TextType::class, [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Votre age'
+                        ]
+                    ])
+                    ->add('email', TextType::class, [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Votre email'
+                        ]
+                    ])
+                    ->add('ville', TextType::class, [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Votre ville'
+                        ]
+                    ])
+                    ->add('imageFile', VichImageType::class, [
+                        'required' => false,
+                        'download_uri' => false,
+                        'image_uri' => true,
+                        'label' => 'Image:',
+                    ])
+                    ->add('adresse', TextType::class, [
+                        'required' => false,
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Veuillez rentrer votre adresse',
+                        ]
+                    ])
+                    ->add('zipCode', TextType::class, [
+                        'required' => false,
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Code postal'
+                        ]
+                    ]);
             }
 
             if ($this->security->isGranted('ROLE_ADMIN')) {
-                $form 
+                $form
                     ->add('roles', ChoiceType::class, [
                         'choices' => [
                             'Utilisateur' => null,

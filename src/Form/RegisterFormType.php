@@ -32,7 +32,7 @@ class RegisterFormType extends AbstractType
                 'first_options' => [
                     'label' => 'Password : ',
                     'attr' => [
-                    'placeholder' => 'Entrez votre mot de passe'
+                        'placeholder' => 'Entrez votre mot de passe'
                     ],
                     'constraints' => [
                         new NotBlank([
@@ -52,7 +52,7 @@ class RegisterFormType extends AbstractType
                     'invalid_message' => 'Le mot de passe doivent matcher',
                 ],
                 'mapped' => false,
-                    
+
             ])
             ->add('prenom', TextType::class, [
                 'label' => 'Prenom :',
@@ -60,7 +60,7 @@ class RegisterFormType extends AbstractType
                     'placeholder' => 'Veuillez rentrer votre prenom'
                 ]
             ])
-            ->add('age', NumberType::class,[
+            ->add('age', NumberType::class, [
                 'label' => 'Age : ',
                 'attr' => [
                     'placeholder' => 'Age'
@@ -73,6 +73,7 @@ class RegisterFormType extends AbstractType
                 ]
             ])
             ->add('ville', TextType::class, [
+                'required' => false,
                 'label' => 'Ville :',
                 'attr' => [
                     'placeholder' => 'Veuillez entrer ville'
@@ -89,7 +90,21 @@ class RegisterFormType extends AbstractType
                 'download_uri' => false,
                 'image_uri' => true,
                 'label' => 'Image:',
-                ]);
+            ])
+            ->add('adresse', TextType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Veuillez rentrer votre adresse',
+                ]
+            ])
+            ->add('zipCode', TextType::class, [
+                'required' => false,
+                'label' => 'Code Postal',
+                'attr' => [
+                    'placeholder' => 'Code postal'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

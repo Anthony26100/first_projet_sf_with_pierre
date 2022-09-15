@@ -19,7 +19,17 @@
 	</div>
 
 	{{ form_row(form.email) }}
-	{{ form_row(form.ville) }}
+	{{ form_row(form.adresse) }}
+	<div class="row">
+		<div class="col-md-8">
+			{{ form_row(form.ville) }}
+		</div>
+		<div class="col-md-4">
+			{{ form_row(form.zipCode) }}
+		</div>
+	</div>
+	{{ form_row(form.imageFile) }}
+
 
 {% endif %}
 
