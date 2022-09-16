@@ -7,6 +7,7 @@ use App\Entity\Categorie;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,8 +29,8 @@ class ArticleType extends AbstractType
                 'class' => Categorie::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
-                    -> andWhere('c.enable = true')
-                    -> orderBy('c.titre', 'ASC');
+                        ->andWhere('c.enable = true')
+                        ->orderBy('c.titre', 'ASC');
                 },
                 'choice_label' => 'titre',
                 'multiple' => true,
@@ -41,11 +42,8 @@ class ArticleType extends AbstractType
                 'image_uri' => true,
                 'label' => 'Image:',
             ])
-            ->add('content', TextareaType::class, [
-                'label' => 'Contenu:',
-                'required' => true
-            ]);
-            
+            ->add('content', HiddenType::class);
+
         // ->add('save', SubmitType::class, [
         //     'label' => 'CRÉER',
         // ]);
