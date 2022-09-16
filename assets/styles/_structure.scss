@@ -1,4 +1,11 @@
 body {
-  background-color: $primary;
+  background-image: linear-gradient(
+    to bottom,
+    #d14242,
+    #e17137,
+    #e59f37,
+    #dfcb4d,
+    #d0f67a
+  );
   padding: 1em;
 }

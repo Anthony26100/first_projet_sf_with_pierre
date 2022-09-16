@@ -78,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 150, nullable: true)]
     #[Assert\Length(
         max: 150,
-        maxMessage: 'La ville ne peut dépasser {{ limit }} caractères',  
+        maxMessage: 'La ville ne peut dépasser {{ limit }} caractères',
     )]
     private $ville;
 
@@ -157,6 +157,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ville = $data['ville'];
     }
 
+    public function __toString(): string
+    {
+        return "$this->prenom = $this->nom";
+    }
 
     public function getId(): ?int
     {
@@ -292,8 +296,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return "$this->prenom $this->nom";
     }
-    
-     /**
+
+    /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
      * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
@@ -327,7 +331,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->imageName;
     }
-    
+
     public function setImageSize(?int $imageSize): void
     {
         $this->imageSize = $imageSize;
@@ -390,8 +394,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->zipCode = $zipCode;
 
         return $this;
-    }   
-
-
-   
+    }
 }

@@ -14,7 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
-#[Vich\Uploadable] 
+#[Vich\Uploadable]
 class Article
 {
     #[ORM\Id]
@@ -27,6 +27,10 @@ class Article
 
     #[ORM\Column(type: 'text')]
     private $content;
+
+    #[ORM\Column(length: 260, unique: true)]
+    #[Gedmo\Slug(fields: ['titre'])]
+    private $slug;
 
     #[ORM\Column(type: 'datetime_immutable')]
     #[Gedmo\Timestampable(on: 'update')]
@@ -175,7 +179,7 @@ class Article
     {
         return $this->imageName;
     }
-    
+
     public function setImageSize(?int $imageSize): void
     {
         $this->imageSize = $imageSize;
@@ -196,5 +200,11 @@ class Article
         $this->user = $user;
 
         return $this;
+    }
+
+    // Slugs
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

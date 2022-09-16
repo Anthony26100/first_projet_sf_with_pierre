@@ -11,6 +11,9 @@ import "./styles/app.scss";
 // start the Stimulus application
 import "./bootstrap";
 
+// js
+import "./js/headerFixed";
+
 const $ = require("jquery");
 // // this "modifies" the jquery module: adding behavior to it
 // // the bootstrap module doesn't export/return anything

@@ -18,8 +18,8 @@ class ArticleController extends AbstractController
 {
 
     public function __construct(
-        private ArticleRepository $repoArticle)
-    {
+        private ArticleRepository $repoArticle
+    ) {
     }
 
     // #Route commentaire du routage
@@ -88,7 +88,7 @@ class ArticleController extends AbstractController
 
     {
         $article = $this->repoArticle->find($id);
-        
+
         if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->get("_token"))) {
             $this->repoArticle->remove($article, true);
 
