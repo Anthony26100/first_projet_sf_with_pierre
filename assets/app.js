@@ -13,6 +13,7 @@ import "./bootstrap";
 
 // js
 import "./js/headerFixed";
+import "./js/swiperArticle";
 
 const $ = require("jquery");
 // // this "modifies" the jquery module: adding behavior to it

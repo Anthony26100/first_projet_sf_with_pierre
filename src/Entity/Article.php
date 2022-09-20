@@ -7,10 +7,7 @@ use App\Repository\ArticleRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-
-
-
-
+use App\Entity\ArticleImage;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -41,17 +38,21 @@ class Article
     #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'articles')]
     private $categories;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'articles')]
+    #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
-    private $user;
+    private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: ArticleImage::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $images;
+
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,6 +82,11 @@ class Article
         $this->content = $content;
 
         return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     public function getUpdatedAt(): ?\DateTimeImmutable
@@ -146,12 +152,6 @@ class Article
         return $this;
     }
 
-    // Slugs
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
     /**
      * @return Collection<int, ArticleImage>
      */
@@ -176,6 +176,36 @@ class Article
             // set the owning side to null (unless already changed)
             if ($image->getArticle() === $this) {
                 $image->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getArticle() === $this) {
+                $comment->setArticle(null);
             }
         }
 

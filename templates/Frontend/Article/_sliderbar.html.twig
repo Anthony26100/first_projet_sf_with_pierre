@@ -26,6 +26,16 @@
 				</div>
 			</div>
 		{% endif %}
+		{% if comments|length > 0|slice(0, 1) %}
+			<div class="show-comments mt-4">
+				<h2>{{ comments|length > 1 ? 'Les Commentaires :' : 'Le Commentaire :' }}</h2>
+				<div class="comments-sidebar-list">
+					{% for comment in comments|slice(0, 3) %}
+						{% include "Frontend/Article/_cardComment.html.twig" %}
+					{% endfor %}
+				</div>
+			</div>
 
+		{% endif %}
 	</div>
 </aside>

@@ -20,12 +20,11 @@ class CategorieType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Titre de la catégorie',
                 ]
-            ] )
+            ])
             ->add('enable', CheckboxType::class, [
                 'label' => 'Active',
                 'required' => false,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

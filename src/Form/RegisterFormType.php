@@ -91,7 +91,7 @@ class RegisterFormType extends AbstractType
                 'image_uri' => true,
                 'label' => 'Image:',
             ])
-            ->add('adresse', TextType::class, [
+            ->add('address', TextType::class, [
                 'required' => false,
                 'label' => false,
                 'attr' => [
