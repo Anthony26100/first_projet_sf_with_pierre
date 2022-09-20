@@ -1,4 +1,4 @@
-import Swiper from "swiper";
+import Swiper from "swiper/bundle";
 import "swiper/scss";
 import "swiper/scss/pagination";
 
@@ -7,10 +7,21 @@ const swiper = new Swiper(".swiper-image", {
   loop: true,
   autoplay: {
     delay: 3000,
-    disableOnInteraction: true,
+    disableOnInteraction: false,
   },
   grabCursor: true,
   pagination: {
     el: ".swiper-pagination",
+    clickable: true,
+  },
+  effect: "creative",
+  creativeEffect: {
+    prev: {
+      shadow: true,
+      translate: [0, 0, -400],
+    },
+    next: {
+      translate: ["100%", 0, 0],
+    },
   },
 });
