@@ -10,6 +10,7 @@ const swiper = new Swiper(".swiper-image", {
     disableOnInteraction: false,
   },
   grabCursor: true,
+  speed: 1000,
   pagination: {
     el: ".swiper-pagination",
     clickable: true,

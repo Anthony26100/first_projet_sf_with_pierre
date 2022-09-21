@@ -1,12 +1,12 @@
 import axios from "axios";
-// console.error('error admin');
-let switchs = document.querySelectorAll("[data-switch-active-tag]");
+
+const switchs = document.querySelectorAll("[data-switch-active-comment]");
 
 if (switchs) {
   switchs.forEach((element) => {
     element.addEventListener("change", () => {
-      let tagId = element.value;
-      axios.get(`/admin/categorie/switch/${tagId}`);
+      let commentId = element.value;
+      axios.get(`/admin/comments/switch/${commentId}`);
     });
   });
 }

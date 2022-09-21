@@ -40,16 +40,22 @@ class CommentRepository extends ServiceEntityRepository
     }
   }
 
-  public function findActiveByArticle(int $articleId): array
+  public function findByArticle(int $articleId, bool $active = false): array
   {
-    return $this->createQueryBuilder('c')
+    $query = $this->createQueryBuilder('c')
       ->andWhere('c.article = :articleId')
-      ->setParameter('articleId', $articleId)
-      ->andWhere('c.active = :active')
-      ->setParameter('active', true)
-      ->orderBy('c.createdAt', 'DESC')
-      ->getQuery()
+      ->setParameter('articleId', $articleId);
+
+    if ($active) {
+      $query->andWhere('c.active = :active')
+        ->setParameter('active', true);
+    }
+
+    $query->orderBy('c.createdAt', 'DESC');
+
+    return $query->getQuery()
       ->getResult();
+
     // dd($query->getQuery());
   }
 

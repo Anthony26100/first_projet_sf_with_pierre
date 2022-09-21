@@ -30,7 +30,7 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        $comments = $this->commentRepository->findActiveByArticle($article->getId());
+        $comments = $this->commentRepository->findByArticle($article->getId(), true);
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
