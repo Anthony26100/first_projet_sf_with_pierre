@@ -5,15 +5,37 @@
 				<img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ article.titre }}"/>
 			</div>
 		</a>
-
+	{% else %}
+		<a href="{{ path('user.article.detail', {'slug' : article.slug}) }}">
+			<div class="blog-card-image">
+				<img src="https://picsum.photos/id/870/200/300?grayscale" alt="{{ article.titre }}"/>
+			</div>
+		</a>
 	{% endfor %}
-
 	<div class="blog-card-content">
 		<p class="blog-card-date">
 			{{ article.createdAt|format_datetime('full', 'none', locale='fr') }}</p>
 		<h2 class="blog-card-header">{{ article.titre }}</h2>
 		<p class="blog-card-content-description">
-			{{ article.content|striptags|slice(0, 100) ~ '...' }}</p>
+			{{ article.content|striptags|slice(0, 100) ~ '...' }}
+		</p>
+		{% for categorie in article.categories %}
+			<em class="text-muted text-primary text-italic">
+				#{{ categorie.titre }}
+			</em>
+		{% endfor %}
+		<div class="author mt-2">
+			{% if article.user.imageName %}
+				<div class="avatar">
+					<img src="{{ vich_uploader_asset(article.user, 'imageFile') }}" alt="{{ article.user.fullName }}">
+				</div>
+			{% else %}
+
+				<i class="bi bi-person-circle"></i>
+
+			{% endif %}
+			<p class="text-muted mb-0">{{ article.user.fullName }}</p>
+		</div>
 
 		{% if admin is defined and admin is not null %}
 			<div class="row mt-2">

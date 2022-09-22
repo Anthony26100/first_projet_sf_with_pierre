@@ -14,20 +14,19 @@ class MainController extends AbstractController
 {
     public function __construct(
         private ArticleRepository $repoArticle
-    )
-    {
+    ) {
     }
 
     /**
      * Affiche la Page d'Accueil
      *
-     * @Route("/", name="home")
      * @return Response
      */
+    #[Route('/', name: 'home')]
     public function index(): Response
     {
         //Récupère tous les Articles
-        $articles = $this->repoArticle->findAll();
+        $articles = $this->repoArticle->findLatestArticleWithLimit(6);
 
         // $data = [
         //     'nom' => 'Pierre',
