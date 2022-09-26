@@ -4,22 +4,47 @@ namespace App\Controller\Frontend;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Data\SearchData;
 use App\Form\CommentType;
+use App\Form\SearchArticleType;
+use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Security;
 
 #[Route("/article")]
 class ArticleController extends AbstractController
 {
     public function __construct(
         private CommentRepository $commentRepository,
+        private ArticleRepository $articleRepository
     ) {
     }
+
+    #[Route('/liste', name: 'app.article.index')]
+    public function listArticle(Request $request): Response
+    {
+        $data = new SearchData;
+        $page = $request->get('page', 1);
+        $data->setPage($page);
+
+        $form = $this->createForm(SearchArticleType::class, $data);
+        $form->handleRequest($request);
+
+
+
+        $articles = $this->articleRepository->findSearchData($data);
+
+        return $this->renderForm('Frontend/Article/liste.html.twig', [
+            'articles' => $articles,
+            'form' => $form,
+        ]);
+    }
+
 
     #[Route('/details/{slug}', name: 'user.article.detail', methods: ['GET', 'POST'])]
     public function detailArticle(?Article $article, Request $request, Security $security): Response|RedirectResponse

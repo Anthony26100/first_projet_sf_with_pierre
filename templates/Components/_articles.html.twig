@@ -1,5 +1,11 @@
 <div class="blog-list">
-  {% for article in articles %}
-    {% include "Components/_card.html.twig" %}
-  {% endfor %}
-</div>  
+	{% for article in articles %}
+		{% include "Components/_card.html.twig" %}
+	{% else %}
+		<div class="alert alert-info w-100 text-center" role="alert">
+			<i class="bi bi-info-circle-fill"></i>
+			<span>Il n'y a pas d'article correspondant à votre recherche</span>
+		</div>
+	{% endfor %}
+
+</div>
