@@ -80,7 +80,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->leftJoin('a.images', 'i');
 
         if (!empty($search->getQuery())) {
-            $query = $query->andWhere('a.titre LIKE :titre')
+            $query = $query->andWhere('a.titre LIKE :titre OR a.content LIKE :titre')
                 ->setParameter('titre', "%{$search->getQuery()}%");
         }
 

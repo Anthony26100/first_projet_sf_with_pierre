@@ -14,6 +14,9 @@ import "./bootstrap";
 // js
 import "./js/headerFixed";
 import "./js/swiperArticle";
+import Filter from "./js/filter";
+
+new Filter(document.querySelector(".js-filter"));
 
 const $ = require("jquery");
 // // this "modifies" the jquery module: adding behavior to it

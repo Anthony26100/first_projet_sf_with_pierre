@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route("/article")]
 class ArticleController extends AbstractController
@@ -26,7 +27,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/liste', name: 'app.article.index')]
-    public function listArticle(Request $request): Response
+    public function listArticle(Request $request): Response|JsonResponse
     {
         $data = new SearchData;
         $page = $request->get('page', 1);
@@ -35,9 +36,26 @@ class ArticleController extends AbstractController
         $form = $this->createForm(SearchArticleType::class, $data);
         $form->handleRequest($request);
 
-
-
         $articles = $this->articleRepository->findSearchData($data);
+
+        if ($request->get('ajax')) {
+            return new JsonResponse([
+                'content' => $this->renderView('Components/_articles.html.twig', [
+                    'articles' => $articles
+                ]),
+                'sortable' => $this->renderView('Components/_sortable.html.twig', [
+                    'articles' => $articles
+                ]),
+                'count' => $this->renderView('Components/_count.html.twig', [
+                    'articles' => $articles
+                ]),
+                'pagination' => $this->renderView('Components/_pagination.html.twig', [
+                    'articles' => $articles,
+                ]),
+                'pages' => ceil($articles->getTotalItemCount() / $articles->getItemNumberPerPage()) // Renvoie le nombres de pages pour enlever le btn "Voir plus"
+
+            ]);
+        }
 
         return $this->renderForm('Frontend/Article/liste.html.twig', [
             'articles' => $articles,

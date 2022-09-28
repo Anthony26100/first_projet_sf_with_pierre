@@ -1,9 +1,14 @@
-{{ form_start(form, {'attr': {'class': 'form-filter p-3 card mt-4'}}) }}
+{{ form_start(form, {'attr': {'class': 'form-filter p-3 card mt-4 js-filter-form'}}) }}
+<div class="loader">
+	<div class="spinner-grow text-primary  js-loading" role="status" aria-hidden="true" style="display:none">
+		<span class="visually-hidden">Loading...</span>
+	</div>
+</div>
+
 {# ajout 'attr': 'class' de class pour styliser notre contenu #}
 {{ form_row(form.query) }}
 <h3 class="mb-3">Catégories :</h3>
 {{ form_row(form.categories,{'attr': {'class': 'd-flex flex-wrap gap-2'}}) }}
 <h3 class="mb-3">Auteurs :</h3>
 {{ form_row(form.auteur,{'attr': {'class': 'd-flex flex-wrap gap-2'}}) }}
-<button type="submit" class="btn btn-primary">Filtrer</button>
 {{ form_end(form) }}
