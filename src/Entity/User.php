@@ -68,6 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         max: 140,
         notInRangeMessage: 'Votre age doit être compris entre {{ min }} et {{ max }} ans.'
     )]
+    #[Assert\NotBlank()]
     private $age;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
@@ -78,6 +79,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(
         max: 255,
         maxMessage: 'Votre email ne peut pas dépasser {{ limit }} caractères'
+    )]
+    #[Assert\NotBlank(
+        ['message' => 'Ce champ est requis']
     )]
     private $email;
 
