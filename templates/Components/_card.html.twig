@@ -1,4 +1,4 @@
-<div class="blog-card">
+<div class="blog-card" id="article-{{ article.id }}">
 	{% for image in article.images|slice(0,1) %}
 		<a href="{{ path('user.article.detail', {'slug' : article.slug}) }}">
 			<div class="blog-card-image">
@@ -37,7 +37,7 @@
 			<p class="text-muted mb-0">{{ article.user.fullName }}</p>
 		</div>
 
-		{% if admin is defined and admin is not null %}
+		{% if admin %}
 			<div class="row mt-2">
 				<div class="col-md-6">
 					<a href="{{ path('admin.article.edit', {id: article.id}) }}" class="btn btn-warning">Modifier</a>
@@ -49,6 +49,11 @@
 						<button class="btn btn-danger">Supprimer</button>
 					</form>
 				</div>
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" role="switch" value="{{ article.id }}" {{ article.active ? 'checked' }} data-switch-active-art>
+					<label class="form-check-label">Actif</label>
+				</div>
+
 			</div>
 			{% if article.comments|length > 0 %}
 				<div class="row">

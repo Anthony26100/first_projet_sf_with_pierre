@@ -11,4 +11,9 @@
 {{ form_row(form.categories,{'attr': {'class': 'd-flex flex-wrap gap-2'}}) }}
 <h3 class="mb-3">Auteurs :</h3>
 {{ form_row(form.auteur,{'attr': {'class': 'd-flex flex-wrap gap-2'}}) }}
-{{ form_end(form) }}
+{% if app.request.get('_route') == 'admin' %}
+	<h3>Visibilité :</h3>
+	{{ form_row(form.active) }}
+{% endif %}
+{{ form_end(form, {render_rest: false}) }}
+{# render_rest non tu ne m'affiche pas ce champ ! car je l'affiche que pour le coter admin #}

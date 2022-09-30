@@ -60,6 +60,7 @@ class ArticleController extends AbstractController
         return $this->renderForm('Frontend/Article/liste.html.twig', [
             'articles' => $articles,
             'form' => $form,
+            'currentPage' => 'articles'
         ]);
     }
 

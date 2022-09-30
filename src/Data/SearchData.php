@@ -31,6 +31,13 @@ class SearchData
   private ?array $auteur = [];
 
   /**
+   * Array of active for search posts
+   * 
+   * @var array|null
+   */
+  private ?array $active = [];
+
+  /**
    * The number of the page of search
    * 
    * @var array|null
@@ -129,6 +136,30 @@ class SearchData
   public function setPage($page)
   {
     $this->page = $page;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of active
+   *
+   * @return ?array
+   */
+  public function getActive(): ?array
+  {
+    return $this->active;
+  }
+
+  /**
+   * Set the value of active
+   *
+   * @param ?array $active
+   *
+   * @return self
+   */
+  public function setActive(?array $active): self
+  {
+    $this->active = $active;
 
     return $this;
   }

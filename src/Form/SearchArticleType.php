@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class SearchArticleType extends AbstractType
 {
@@ -46,6 +47,16 @@ class SearchArticleType extends AbstractType
             ->orderBy('u.nom', 'ASC');
         },
         'expanded' => true,
+        'multiple' => true,
+      ])
+      ->add('active', ChoiceType::class, [
+        'label' => false,
+        'required' => false,
+        'choices' => [
+          'Oui' => true,
+          'Non' => false,
+        ],
+        'expanded' => true, // Va rajouter plusieurs checkbox
         'multiple' => true,
       ]);
   }

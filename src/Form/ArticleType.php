@@ -8,6 +8,7 @@ use App\Form\ArticleImageType;
 
 use App\Form\CategorieAutocompleteField;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,7 +40,10 @@ class ArticleType extends AbstractType
                 'by_reference' => false,
                 'label' => false
             ])
-            ->add('content', HiddenType::class);
+            ->add('content', HiddenType::class)
+            ->add('active', CheckboxType::class, [
+                'label' => 'Active:',
+            ]);
 
         // ->add('save', SubmitType::class, [
         //     'label' => 'CRÉER',
