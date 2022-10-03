@@ -8,9 +8,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\ArticleImage;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[UniqueEntity(
+    fields: ['titre'], // Rendre le champs Unique côté Symfony
+    message: 'Ce titre est déjà utilisé par un autre article'
+)]
 class Article
 {
     #[ORM\Id]
@@ -18,7 +23,7 @@ class Article
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     #[Assert\Length(
         min: 5,
         minMessage: 'Votre Titre doit contenir {{ limit }} caractères minimum',
@@ -28,6 +33,10 @@ class Article
     private $titre;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\Length(
+        min: 10,
+        minMessage: 'Votre titre doit contenir minimum {{ limit }} caractères'
+    )]
     private $content;
 
     #[ORM\Column(length: 260, unique: true)]
