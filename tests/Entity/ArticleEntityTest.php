@@ -19,7 +19,7 @@ class ArticleEntityTest extends KernelTestCase
   // Executer tout le temps (dès qu'un test est lancé)
   protected function setUp(): void
   {
-    parent::setUp();
+    parent::setUp(); // utiliser dans le KernelTestCase
 
     $this->databaseTool = self::getContainer()->get(DatabaseToolCollection::class)->get();
   }
