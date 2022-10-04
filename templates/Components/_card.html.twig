@@ -1,0 +1,67 @@
+<div class="blog-card" id="article-{{ article.id }}">
+	{% for image in article.images|slice(0,1) %}
+		<a href="{{ path('user.article.detail', {'slug' : article.slug}) }}">
+			<div class="blog-card-image">
+				<img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ article.titre }}"/>
+			</div>
+		</a>
+	{% else %}
+		<a href="{{ path('user.article.detail', {'slug' : article.slug}) }}">
+			<div class="blog-card-image">
+				<img src="https://picsum.photos/id/870/200/300?grayscale" alt="{{ article.titre }}"/>
+			</div>
+		</a>
+	{% endfor %}
+	<div class="blog-card-content">
+		<p class="blog-card-date">
+			{{ article.createdAt|format_datetime('full', 'none', locale='fr') }}</p>
+		<h2 class="blog-card-header">{{ article.titre }}</h2>
+		<p class="blog-card-content-description">
+			{{ article.content|striptags|slice(0, 100) ~ '...' }}
+		</p>
+		{% for categorie in article.categories %}
+			<em class="text-muted text-primary text-italic">
+				#{{ categorie.titre }}
+			</em>
+		{% endfor %}
+		<div class="author mt-2">
+			{% if article.user.imageName %}
+				<div class="avatar">
+					<img src="{{ vich_uploader_asset(article.user, 'imageFile') }}" alt="{{ article.user.fullName }}">
+				</div>
+			{% else %}
+
+				<i class="bi bi-person-circle"></i>
+
+			{% endif %}
+			<p class="text-muted mb-0">{{ article.user.fullName }}</p>
+		</div>
+
+		{% if admin %}
+			<div class="row mt-2">
+				<div class="col-md-6">
+					<a href="{{ path('admin.article.edit', {id: article.id}) }}" class="btn btn-warning">Modifier</a>
+				</div>
+				<div class="col-md-6">
+					<form method="POST" action="{{ path('admin.article.delete', {id: article.id} ) }}" onsubmit="return confirm('Êtes-vous vraiment sûr(e) de vouloir supprimer cet Article ?')">
+						<input type="hidden" name="_method" value="DELETE">
+						<input type="hidden" name="_token" value="{{csrf_token('delete' ~ article.id)}}">
+						<button class="btn btn-danger">Supprimer</button>
+					</form>
+				</div>
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" role="switch" value="{{ article.id }}" {{ article.active ? 'checked' }} data-switch-active-art>
+					<label class="form-check-label">Actif</label>
+				</div>
+
+			</div>
+			{% if article.comments|length > 0 %}
+				<div class="row">
+					<div class="col-md-4 mt-4">
+						<a href="{{ path('admin.article.comments', {slug: article.slug}) }}" class="btn btn-info">Commentaire</a>
+					</div>
+				</div>
+			{% endif %}
+		{% endif %}
+	</div>
+</div>

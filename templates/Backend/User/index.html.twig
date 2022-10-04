@@ -1,0 +1,103 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    Admin | User Index |
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('admin') }} 
+{% endblock %}
+
+{% block body %}
+    <section class="container mt-4">
+    <h1 class="text-center">Admin des Users</h1>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>
+                        Prenom
+                    </th>
+                    <th>
+                        Nom
+                    </th>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Age
+                    </th>
+                    <th>
+                        Roles
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td><div class="container "><img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.imageName }}" class="img-thumbnail"/></div></td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.age }}</td>
+                        <td>{{ user.roles ? user.roles|json_encode() : '' }}</td>
+                        <td>                            
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {% include "Backend/User/_actions.html.twig" %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    
+
+    {# <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Enable</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.titre }}</td>
+                <td>{{ user.enable ? 'Yes' : 'No' }}</td>
+                <td>
+    
+                    
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> #}
+    
+    </section>
+
+    
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('admin') }}
+{% endblock %}

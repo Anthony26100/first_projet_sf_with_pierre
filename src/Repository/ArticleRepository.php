@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -16,8 +19,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private PaginatorInterface $paginator
+    ) {
         parent::__construct($registry, Article::class);
     }
 
@@ -39,28 +44,98 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Article[] Returns an array of Article objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Function to search latest posts with limit.
+     *
+     * @param int $limit number of max results in query
+     *
+     * @return array
+     */
+    public function findLatestArticleWithLimit(int $limit): array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a', 'u', 'i')
+            ->innerJoin('a.user', 'u')
+            ->leftJoin('a.images', 'i')
+            ->andWhere('a.active = true')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Article
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    // Premier recherche personnalisé (titres, categories, auteurs)
+    /**
+     * Fucntion to search and filter posts.
+     *
+     * @param SearchData $search
+     *
+     * @return PaginationInterface object with pagination for posts
+     */
+    public function findSearchData(SearchData $search, bool $active = true): PaginationInterface
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('a', 'u', 'i', 'co', 'c')
+            ->join('a.user', 'u')
+            ->leftJoin('a.categories', 'c')
+            ->leftJoin('a.comments', 'co')
+            ->leftJoin('a.images', 'i');
+
+        if ($active) {
+            $query->andWhere('a.active = true');
+        } else {
+            if (!empty($search->getActive())) {
+                $query->andWhere('a.active IN (:active)')
+                    ->setParameter('active', $search->getActive());
+            }
+        }
+
+        if (!empty($search->getQuery())) {
+            $query = $query->andWhere('a.titre LIKE :titre OR a.content LIKE :titre')
+                ->setParameter('titre', "%{$search->getQuery()}%");
+        }
+
+        if (!empty($search->getCategories())) {
+            $query = $query->andWhere('c.id IN (:tags)')
+                ->setParameter('tags', $search->getCategories());
+        }
+
+        if (!empty($search->getAuteur())) {
+            $query = $query->andWhere('u.id IN (:author)')
+                ->setParameter('author', $search->getAuteur());
+        }
+
+        $query = $query->getQuery();
+
+        return $this->paginator->paginate(
+            $query, /* La requetes */
+            $search->getPage(), /* numéro de la page */
+            6 /* limite d'élément par page */
+        );
+    }
+
+    //    /**
+    //     * @return Article[] Returns an array of Article objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('a')
+    //            ->andWhere('a.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('a.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Article
+    //    {
+    //        return $this->createQueryBuilder('a')
+    //            ->andWhere('a.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

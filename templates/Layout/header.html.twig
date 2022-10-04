@@ -1,32 +1,67 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('home') }}">My App Symfony</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="{{ path('home')}}">Home</a>
-                    {# <a class="nav-link" href="#">Features</a>
-                    <a class="nav-link" href="#">Pricing</a>
-                    <a class="nav-link disabled">Disabled</a> #}
-                </div>
-            </div>
-            {% if app.user %}
-                {% if is_granted('ROLE_ADMIN') %}
-                    <div class="navbar-btn me-2">
-                        <a href="{{ path('admin') }}" class="btn btn-secondary">Admin</a>
-                    </div>
-                {% endif %}
-                <div class="ml-left ml-4">
-                    <a href="{{ path('logout') }}" class="btn btn-danger">Se deconnecter</a>
-                </div>
-            {% else %}
-                <div class="ml-left">
-                    <a href="{{ path('login') }}" class="btn btn-secondary">Login</a>
-                </div>
-            {% endif %}
-        </div>
-    </nav>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="{{ path('home') }}">My App Symfony</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-link {{ currentPage is defined and currentPage == 'home' ? 'active'}}" aria-current="page" href="{{ path('home')}}">Home</a>
+				</div>
+				<div class="navbar-nav">
+					<a class="nav-link {{ currentPage is defined and currentPage == 'articles' ? 'active'}}" aria-current="page" href="{{ path('app.article.index')}}">Articles</a>
+
+				</div>
+			</div>
+			{% if app.user %}
+				{% if is_granted('ROLE_ADMIN') %}
+					<div class="dropdown me-2">
+						<button class="btn btn-secondary dropdown-toggle mx-4" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-gear-fill"></i>
+							Admin
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li>
+								<a class="dropdown-item" href="{{ path('admin.user.index') }}">
+									<i class="bi bi-people-fill"></i>
+									Gérer les utilisateurs</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{ path('admin') }}">
+									<i class="bi bi-bag-check-fill"></i>
+									Articles</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{ path('app_categorie_index') }}">
+									<i class="bi bi-bookmarks-fill"></i>
+									Catégories</a>
+							</li>
+						</ul>
+					</div>
+				{% endif %}
+				<div class="ml-left ">
+					<a href="{{ path('app.user.compte') }}" class="btn btn-warning">
+						<i class="bi bi-person-check-fill"></i>
+						Mon Compte</a>
+				</div>
+				<div class="ml-left mx-4">
+					<a href="{{ path('logout') }}" class="btn btn-danger">Se deconnecter</a>
+				</div>
+			{% else %}
+				<div class="ml-left">
+					<a href="{{ path('register') }}" class="btn btn-primary">
+						<i class="bi bi-person-plus-fill"></i>
+						Sign Up
+					</a>
+				</div>
+				<div class="ml-left mx-4">
+					<a href="{{ path('login') }}" class="btn btn-secondary">
+						<i class="bi bi-box-arrow-in-right"></i>
+						Login
+					</a>
+				</div>
+			{% endif %}
+		</div>
+	</nav>
 </header>

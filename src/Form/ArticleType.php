@@ -4,8 +4,9 @@ namespace App\Form;
 
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,12 +18,25 @@ class ArticleType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'label' => 'Titre:',
-                'required' => true
+                'required' => true,
             ])
-            ->add('content', TextareaType::class, [
-                'label' => 'Contenu:',
-                'required' => true
+            ->add('categories', CategorieAutocompleteField::class, [
+                'label' => 'Categories:',
+            ])
+            ->add('images', CollectionType::class, [
+                'entry_type' => ArticleImageType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true,
+                'prototype' => true,
+                'by_reference' => false,
+                'label' => false,
+            ])
+            ->add('content', HiddenType::class)
+            ->add('active', CheckboxType::class, [
+                'label' => 'Active:',
             ]);
+
         // ->add('save', SubmitType::class, [
         //     'label' => 'CRÉER',
         // ]);

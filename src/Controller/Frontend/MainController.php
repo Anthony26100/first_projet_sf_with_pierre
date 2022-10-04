@@ -8,35 +8,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Classe Main Controller pour Page d'Accueil
+ * Classe Main Controller pour Page d'Accueil.
  */
 class MainController extends AbstractController
 {
-    public function __construct(ArticleRepository $repoArticle)
-    {
-        $this->repoArticle = $repoArticle;
+    public function __construct(
+        private ArticleRepository $repoArticle
+    ) {
     }
 
     /**
-     * Affiche la Page d'Accueil
+     * Affiche la Page d'Accueil.
      *
-     * @Route("/", name="home")
      * @return Response
      */
+    #[Route('/', name: 'home')]
     public function index(): Response
     {
-        //Récupère tous les Articles
-        $articles = $this->repoArticle->findAll();
+        // Récupère tous les Articles
+        $articles = $this->repoArticle->findLatestArticleWithLimit(6);
 
-        // $data = [
-        //     'nom' => 'Pierre',
-        //     'age' => 25,
-        //     'ville' => 'Chambéry'
-        // ];
-
-        // return $this->render('Home/index.html.twig', ['data' => $data]);
-        return $this->render('Home/index.html.twig', [
-            'articles' => $articles
+        return $this->render('Frontend/Home/index.html.twig', [
+            'articles' => $articles,
+            'currentPage' => 'home',
         ]);
     }
 }

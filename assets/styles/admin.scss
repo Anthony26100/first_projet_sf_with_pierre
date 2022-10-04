@@ -1,0 +1,9 @@
+// Import du fichier _variables.scss
+@import "./variables";
+
+// Bootstrap 5
+@import "tom-select/dist/css/tom-select.bootstrap5.css";
+
+// Import SCSS
+@import "./Admin/vichUpload.scss";
+@import "./Admin/ckeditor.scss";

@@ -11,7 +11,6 @@ class AppFixtures extends Fixture
 {
     public function __construct(private UserPasswordHasherInterface $hasher)
     {
-        
     }
 
     public function load(ObjectManager $manager): void
@@ -26,7 +25,7 @@ class AppFixtures extends Fixture
             ->setUsername('stefbk')
             ->setEmail('stef@stef.com')
             ->setPassword($this->hasher->hashPassword($user, 'test1234'))
-            ->setRoles(["ROLE_ADMIN"])
+            ->setRoles(['ROLE_ADMIN'])
             ->setVille('VALENCE');
 
         $manager->persist($user);
