@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Classe Main Controller pour Page d'Accueil
+ * Classe Main Controller pour Page d'Accueil.
  */
 class MainController extends AbstractController
 {
@@ -18,19 +18,19 @@ class MainController extends AbstractController
     }
 
     /**
-     * Affiche la Page d'Accueil
+     * Affiche la Page d'Accueil.
      *
      * @return Response
      */
     #[Route('/', name: 'home')]
     public function index(): Response
     {
-        //Récupère tous les Articles
+        // Récupère tous les Articles
         $articles = $this->repoArticle->findLatestArticleWithLimit(6);
 
         return $this->render('Frontend/Home/index.html.twig', [
             'articles' => $articles,
-            'currentPage' => 'home'
+            'currentPage' => 'home',
         ]);
     }
 }

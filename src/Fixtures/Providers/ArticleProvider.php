@@ -2,32 +2,30 @@
 
 namespace App\Fixtures\Providers;
 
+use DateTimeImmutable;
 use Faker\Factory;
 use Faker\Generator;
-use DateTimeImmutable;
-
 
 class ArticleProvider
 {
+    private Generator $faker;
 
-  private Generator $faker;
+    public function __construct(Generator $faker)
+    {
+        $this->faker = Factory::create('fr-FR');
+    }
 
-  public function __construct(Generator $faker)
-  {
-    $this->faker = Factory::create('fr-FR');
-  }
+    public function generateContent(): string
+    {
+        $content = file_get_contents('https://loripsum.net/api/10/long/headers/link/ul/dl');
 
-  public function generateContent(): string
-  {
-    $content = file_get_contents('https://loripsum.net/api/10/long/headers/link/ul/dl');
+        return $content;
+    }
 
-    return $content;
-  }
+    public function generateDate(): DateTimeImmutable
+    {
+        $datetime = DateTimeImmutable::createFromMutable($this->faker->dateTimeThisYear());
 
-  public function generateDate(): DateTimeImmutable
-  {
-    $datetime = DateTimeImmutable::createFromMutable($this->faker->dateTimeThisYear());
-
-    return $datetime;
-  }
+        return $datetime;
+    }
 }

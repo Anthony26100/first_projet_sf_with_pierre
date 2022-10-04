@@ -2,12 +2,12 @@
 
 namespace App\Repository;
 
-use App\Entity\Article;
 use App\Data\SearchData;
-use Doctrine\Persistence\ManagerRegistry;
-use Knp\Component\Pager\PaginatorInterface;
-use Knp\Component\Pager\Pagination\PaginationInterface;
+use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -45,9 +45,10 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
-     * Function to search latest posts with limit
-     * 
+     * Function to search latest posts with limit.
+     *
      * @param int $limit number of max results in query
+     *
      * @return array
      */
     public function findLatestArticleWithLimit(int $limit): array
@@ -65,9 +66,10 @@ class ArticleRepository extends ServiceEntityRepository
 
     // Premier recherche personnalisé (titres, categories, auteurs)
     /**
-     * Fucntion to search and filter posts
-     * 
+     * Fucntion to search and filter posts.
+     *
      * @param SearchData $search
+     *
      * @return PaginationInterface object with pagination for posts
      */
     public function findSearchData(SearchData $search, bool $active = true): PaginationInterface

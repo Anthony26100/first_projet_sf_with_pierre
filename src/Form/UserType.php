@@ -3,15 +3,15 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Security\Core\Security;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserType extends AbstractType
 {
@@ -32,37 +32,37 @@ class UserType extends AbstractType
                         'required' => true,
                         'attr' => [
                             'placeholder' => 'Votre Username',
-                        ]
+                        ],
                     ])
                     ->add('prenom', TextType::class, [
                         'label' => false,
                         'attr' => [
-                            'placeholder' => 'Votre prenom'
-                        ]
+                            'placeholder' => 'Votre prenom',
+                        ],
                     ])
                     ->add('nom', TextType::class, [
                         'label' => false,
                         'attr' => [
-                            'placeholder' => 'Votre nom'
-                        ]
+                            'placeholder' => 'Votre nom',
+                        ],
                     ])
                     ->add('age', TextType::class, [
                         'label' => false,
                         'attr' => [
-                            'placeholder' => 'Votre age'
-                        ]
+                            'placeholder' => 'Votre age',
+                        ],
                     ])
                     ->add('email', TextType::class, [
                         'label' => false,
                         'attr' => [
-                            'placeholder' => 'Votre email'
-                        ]
+                            'placeholder' => 'Votre email',
+                        ],
                     ])
                     ->add('ville', TextType::class, [
                         'label' => false,
                         'attr' => [
-                            'placeholder' => 'Votre ville'
-                        ]
+                            'placeholder' => 'Votre ville',
+                        ],
                     ])
                     ->add('imageFile', VichImageType::class, [
                         'required' => false,
@@ -75,14 +75,14 @@ class UserType extends AbstractType
                         'label' => false,
                         'attr' => [
                             'placeholder' => 'Veuillez rentrer votre adresse',
-                        ]
+                        ],
                     ])
                     ->add('zipCode', TextType::class, [
                         'required' => false,
                         'label' => false,
                         'attr' => [
-                            'placeholder' => 'Code postal'
-                        ]
+                            'placeholder' => 'Code postal',
+                        ],
                     ]);
             }
 

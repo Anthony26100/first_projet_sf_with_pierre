@@ -3,20 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Article;
-
-use App\Form\ArticleImageType;
-
-use App\Form\CategorieAutocompleteField;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\FormBuilderInterface;
-
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleType extends AbstractType
 {
@@ -25,11 +18,10 @@ class ArticleType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'label' => 'Titre:',
-                'required' => true
+                'required' => true,
             ])
             ->add('categories', CategorieAutocompleteField::class, [
                 'label' => 'Categories:',
-
             ])
             ->add('images', CollectionType::class, [
                 'entry_type' => ArticleImageType::class,
@@ -38,7 +30,7 @@ class ArticleType extends AbstractType
                 'delete_empty' => true,
                 'prototype' => true,
                 'by_reference' => false,
-                'label' => false
+                'label' => false,
             ])
             ->add('content', HiddenType::class)
             ->add('active', CheckboxType::class, [

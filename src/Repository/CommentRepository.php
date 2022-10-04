@@ -17,47 +17,47 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CommentRepository extends ServiceEntityRepository
 {
-  public function __construct(ManagerRegistry $registry)
-  {
-    parent::__construct($registry, Comment::class);
-  }
-
-  public function add(Comment $entity, bool $flush = false): void
-  {
-    $this->getEntityManager()->persist($entity);
-
-    if ($flush) {
-      $this->getEntityManager()->flush();
-    }
-  }
-
-  public function remove(Comment $entity, bool $flush = false): void
-  {
-    $this->getEntityManager()->remove($entity);
-
-    if ($flush) {
-      $this->getEntityManager()->flush();
-    }
-  }
-
-  public function findByArticle(int $articleId, bool $active = false): array
-  {
-    $query = $this->createQueryBuilder('c')
-      ->andWhere('c.article = :articleId')
-      ->setParameter('articleId', $articleId);
-
-    if ($active) {
-      $query->andWhere('c.active = :active')
-        ->setParameter('active', true);
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Comment::class);
     }
 
-    $query->orderBy('c.createdAt', 'DESC');
+    public function add(Comment $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
 
-    return $query->getQuery()
-      ->getResult();
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
 
-    // dd($query->getQuery());
-  }
+    public function remove(Comment $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function findByArticle(int $articleId, bool $active = false): array
+    {
+        $query = $this->createQueryBuilder('c')
+          ->andWhere('c.article = :articleId')
+          ->setParameter('articleId', $articleId);
+
+        if ($active) {
+            $query->andWhere('c.active = :active')
+              ->setParameter('active', true);
+        }
+
+        $query->orderBy('c.createdAt', 'DESC');
+
+        return $query->getQuery()
+          ->getResult();
+
+        // dd($query->getQuery());
+    }
 
   //    /**
   //     * @return Comment[] Returns an array of Comment objects

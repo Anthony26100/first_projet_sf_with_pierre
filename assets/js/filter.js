@@ -108,6 +108,7 @@ export default class Filter {
 
   async loadUrl(url, append = false) {
     this.showLoader();
+    this.content.classList.remove("content-response");
     const params = new URLSearchParams(url.split("?")[1] || "");
     params.set("ajax", 1);
 
@@ -141,6 +142,8 @@ export default class Filter {
 
       this.sortable.innerHTML = data.sortable;
       this.count.innerHTML = data.count;
+
+      this.content.classList.add("content-response");
 
       // this.form.innerHTML = data.form;
       params.delete("ajax");

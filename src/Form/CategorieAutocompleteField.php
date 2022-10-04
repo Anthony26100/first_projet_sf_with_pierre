@@ -26,7 +26,7 @@ class CategorieAutocompleteField extends AbstractType
                     ->orderBy('c.titre', 'ASC');
             },
             'by_reference' => false,
-            //'security' => 'ROLE_SOMETHING',
+            // 'security' => 'ROLE_SOMETHING',
         ]);
     }
 

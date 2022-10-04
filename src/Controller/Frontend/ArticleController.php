@@ -2,22 +2,22 @@
 
 namespace App\Controller\Frontend;
 
+use App\Data\SearchData;
 use App\Entity\Article;
 use App\Entity\Comment;
-use App\Data\SearchData;
 use App\Form\CommentType;
 use App\Form\SearchArticleType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
-#[Route("/article")]
+#[Route('/article')]
 class ArticleController extends AbstractController
 {
     public function __construct(
@@ -29,7 +29,7 @@ class ArticleController extends AbstractController
     #[Route('/liste', name: 'app.article.index')]
     public function listArticle(Request $request): Response|JsonResponse
     {
-        $data = new SearchData;
+        $data = new SearchData();
         $page = $request->get('page', 1);
         $data->setPage($page);
 
@@ -41,29 +41,27 @@ class ArticleController extends AbstractController
         if ($request->get('ajax')) {
             return new JsonResponse([
                 'content' => $this->renderView('Components/_articles.html.twig', [
-                    'articles' => $articles
+                    'articles' => $articles,
                 ]),
                 'sortable' => $this->renderView('Components/_sortable.html.twig', [
-                    'articles' => $articles
+                    'articles' => $articles,
                 ]),
                 'count' => $this->renderView('Components/_count.html.twig', [
-                    'articles' => $articles
+                    'articles' => $articles,
                 ]),
                 'pagination' => $this->renderView('Components/_pagination.html.twig', [
                     'articles' => $articles,
                 ]),
-                'pages' => ceil($articles->getTotalItemCount() / $articles->getItemNumberPerPage()) // Renvoie le nombres de pages pour enlever le btn "Voir plus"
-
+                'pages' => ceil($articles->getTotalItemCount() / $articles->getItemNumberPerPage()), // Renvoie le nombres de pages pour enlever le btn "Voir plus"
             ]);
         }
 
         return $this->renderForm('Frontend/Article/liste.html.twig', [
             'articles' => $articles,
             'form' => $form,
-            'currentPage' => 'articles'
+            'currentPage' => 'articles',
         ]);
     }
-
 
     #[Route('/details/{slug}', name: 'user.article.detail', methods: ['GET', 'POST'])]
     public function detailArticle(?Article $article, Request $request, Security $security): Response|RedirectResponse
@@ -80,7 +78,6 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $comment->setUser($security->getUser());
             $comment->setArticle($article);
             $comment->setActive(true);
